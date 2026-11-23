@@ -121,7 +121,7 @@ const FORBIDDEN = new RegExp([
   '|' + B + 'axiom' + A + '|' + B + 'opaque' + A + String.raw`|unsafe|` + B + 'partial' + A + String.raw`|sorry|` + B + 'admit' + A,
   String.raw`|#[a-z_][a-z_]{2,}|implemented_by|extern`,
   String.raw`|` + '`' + String.raw`\([a-z]+\||\$\(|%\[|@\[|register_|declare_|lcProof|lcUnreachable|` + B + 'infix|' + B + 'prefix' + A + '|' + B + 'postfix' + A,
-  String.raw`|set_option|binder_predicate|unif_hint|^\s*add_\w+|unseal|compile_inductive|irreducible_def`,
+  String.raw`|set_option|binder_predicate|unif_hint|^\s*add_\w+|unseal|compile_inductive|irreducible_def|proof_wanted|mk_iff_of_inductive_prop`,
 ].join(''), 'u');
 // The four limit options, wherever they stand, are taken out before the list is asked; every
 // other set_option, at column 0 or indented, is refused by it.

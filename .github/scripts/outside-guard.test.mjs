@@ -54,6 +54,11 @@ refused('#check', `#check Nat\n${thm}`, '#check');
 refused('#print axioms, indented', `${thm}  #print axioms Nat.add_comm\n`, '#print');
 refused('a direction-changing character', `-- ‮\n${thm}`, 'invisible');
 refused('no theorem at all', 'def x : Nat := 1\n', 'no theorem');
+// Commands that take an explicit target name could place a declaration outside the file's own
+// namespace; refused anywhere until tested in Lean (red team, read of the own-namespace rule).
+refused('mk_iff_of_inductive_prop', `mk_iff_of_inductive_prop Foo Bar.baz\n${thm}`, 'mk_iff_of_inductive_prop');
+refused('proof_wanted', `proof_wanted foo : True\n${thm}`, 'proof_wanted');
+refused('an attribute that takes a target name', `@[to_additive Foo.bar] theorem t : True := trivial\n${thm}`, '@[');
 
 passes('one theorem', thm);
 passes('helpers, definitions, namespaces, a docstring', `namespace PEqualNP.Outside.L_x_1\nopen Finset\nvariable {n : ℕ}\n/-- A doc comment. -/\nprivate def f (x : ℕ) : ℕ := x\nprivate lemma l : f 1 = 1 := rfl\nend PEqualNP.Outside.L_x_1\n\n${thm}`);
