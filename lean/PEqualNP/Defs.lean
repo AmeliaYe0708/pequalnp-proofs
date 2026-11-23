@@ -50,6 +50,7 @@ import PEqualNP.Defs.PendantBit
 import PEqualNP.Defs.BorrowedCoverCircuit
 import PEqualNP.Defs.LineDegree
 import PEqualNP.Defs.CircuitMoves
+import PEqualNP.Defs.LowMerge
 
 /-!
 # The definitions root
