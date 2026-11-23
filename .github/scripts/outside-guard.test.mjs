@@ -148,6 +148,7 @@ ownPasses('only the theorem', t9);
 ownPasses('helpers inside the own namespace', `namespace ${M}\n\ndef f (n : ℕ) : ℕ := n\nlemma l : f 1 = 1 := rfl\n\nend ${M}\n\nopen ${M} in\n${t9}`);
 ownPasses('nested namespace and sections inside it', `namespace ${M}\nnamespace Helpers\nsection\nvariable {n : ℕ}\ntheorem a : n = n := rfl\nend\nnoncomputable section Reals\ndef g : ℕ := 0\nend Reals\nend Helpers\nend ${M}\n${t9}`);
 ownPasses('the _aux form, a dotted block below it, and the block opened twice', `namespace ${M}_aux\ntheorem a : True := trivial\nend ${M}_aux\nnamespace ${M}_aux.Helpers\ntheorem b : True := trivial\nend ${M}_aux.Helpers\nnamespace ${M}.More\ntheorem c : True := trivial\nend ${M}.More\n${t9}`);
+ownPasses('a where block after the theorem (its helpers carry no command word)', `theorem ${M} : 2 = 2 := by\n  exact aux 2\nwhere\n  aux (n : ℕ) : n = n := by\n    induction n with\n    | zero => rfl\n    | succ k ih => rfl\n  termination_by structural n\n`);
 ownPasses('mutual inside the own namespace', `namespace ${M}\nmutual\ndef ev : ℕ → Bool\n  | 0 => true\n  | n + 1 => od n\ndef od : ℕ → Bool\n  | 0 => false\n  | n + 1 => ev n\nend\nend ${M}\n${t9}`);
 ownPasses('comments, a doc comment, limit options and open lines at the top level', `/-! notes\ndef not_code : ℕ := 0\n-/\nopen Finset\n-- def nor_this : ℕ := 0\nset_option maxHeartbeats 400000 in\n/-- The step. -/\n${t9}`);
 ownPasses('a statement over several lines, some at column 0', `theorem ${M} :\n∀ n : ℕ,\n  n = n := by\n  intro n\n  rfl\n`);
