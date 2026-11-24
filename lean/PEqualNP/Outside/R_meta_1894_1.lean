@@ -3,8 +3,10 @@ import PEqualNP.Defs
 
 open PEqualNP.CircuitLowerBounds PEqualNP.MetaComplexity
 
--- The first AND that fires has at most two inputs, each supplied by an OR path.
--- Its activation can therefore be tested with at most two true original inputs.
+-- Before the first true AND, a true operand traces through OR gates to a true input bit.
+-- An AND with no operands needs no true input bits.
+-- The sparse bound therefore only needs the empty set, the singletons and the pairs
+-- from the ten designated input positions.
 theorem PEqualNP.Outside.R_meta_1894_1
     (smallSupport : ∀ (n : ℕ) (C : Circuit), Monotone2 C →
       let active := fun (X : Finset (Fin n)) => ∃ j g,
